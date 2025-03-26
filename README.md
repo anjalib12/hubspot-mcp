@@ -184,10 +184,12 @@ MCP Server for the HubSpot API, enabling Claude to interact with HubSpot CRM for
    - `crm.objects.companies.write`
    - `crm.objects.owners.read`
    - `crm.objects.quotes.read`
-   - `crm.schemas.pipelines.read`
    - `crm.objects.line_items.read`
-   - `timeline`
    - `crm.objects.custom.read`
+   - `crm.schemas.deals.read`
+   - `crm.schemas.contacts.read`
+   - `crm.schemas.companies.read`
+   - `crm.schemas.custom.read`
 
 ### Usage with Claude Desktop
 
