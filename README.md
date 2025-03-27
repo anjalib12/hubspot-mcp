@@ -2,6 +2,10 @@
 
 MCP Server for the HubSpot API, enabling Claude to interact with HubSpot CRM for sales analysis and insights.
 
+> ## Disclaimer
+>
+> This open-source project is not affiliated with or endorsed by HubSpot. It is an independent implementation that interacts with HubSpot's API.
+
 ## Tools
 
 ### Core CRM Tools
