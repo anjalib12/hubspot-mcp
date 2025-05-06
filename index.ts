@@ -1743,6 +1743,10 @@ app.get('/', (req, res) => {
   res.send('HubSpot MCP Server is running');
 });
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Web server on port ${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Web server on port ${PORT} at 0.0.0.0`);
 });
+
+// Add these timeout settings to prevent connection issues
+server.keepAliveTimeout = 120000; // 120 seconds
+server.headersTimeout = 120000;   // 120 seconds
