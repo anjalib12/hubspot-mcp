@@ -1737,3 +1737,12 @@ main().catch((error) => {
   console.error("Fatal error in main():", error);
   process.exit(1);
 });
+import express from 'express';
+const app = express();
+app.get('/', (req, res) => {
+  res.send('HubSpot MCP Server is running');
+});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Web server on port ${PORT}`);
+});
