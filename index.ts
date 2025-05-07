@@ -1753,9 +1753,19 @@ app.post('/call-tool', async (req, res) => {
     return res.status(400).json({ error: 'Invalid request: name and arguments required' });
   }
 
-  // Simulate MCP server handling (integrate with your existing MCP server)
-  // This assumes you already created your `Server` and registered tools earlier
-  res.status(501).json({ error: 'MCP handler logic should be connected here.' });
+  try {
+    const result = await server.handleRequest(CallToolRequestSchema, {
+      params: {
+        name: request.name,
+        arguments: request.arguments
+      }
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error handling call-tool request:', error);
+    res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
+  }
 });
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
