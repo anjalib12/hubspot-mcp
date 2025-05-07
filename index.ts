@@ -1755,7 +1755,7 @@ app.post('/call-tool', async (req, res) => {
   }
 
   try {
-    const result = await mcpServer.handleRequest(CallToolRequestSchema, {
+    const result = await mcpServer.receive(CallToolRequestSchema, {
       params: {
         name: request.name,
         arguments: request.arguments
