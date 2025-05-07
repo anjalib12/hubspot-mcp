@@ -7,6 +7,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CallToolRequest, CallToolRequestSchema, ListToolsRequestSchema, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { Client } from "@hubspot/api-client";
 import { FilterOperatorEnum, PublicObjectSearchRequest } from "@hubspot/api-client/lib/codegen/crm/companies/index.js";
+let mcpServer: Server;
 
 // Type definitions for tool arguments
 interface SearchContactsArgs {
@@ -1473,7 +1474,7 @@ async function main() {
   }
 
   console.error("Starting HubSpot MCP Server...");
-  const server = new Server(
+  mcpServer = new Server(
     {
       name: "HubSpot MCP Server",
       version: "1.0.0",
@@ -1754,7 +1755,7 @@ app.post('/call-tool', async (req, res) => {
   }
 
   try {
-    const result = await server.handleRequest(CallToolRequestSchema, {
+    const result = await mcpServer.handleRequest(CallToolRequestSchema, {
       params: {
         name: request.name,
         arguments: request.arguments
