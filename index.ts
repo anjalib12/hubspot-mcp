@@ -1769,9 +1769,9 @@ app.post('/call-tool', async (req, res) => {
 });
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
-const server = app.listen(PORT, '0.0.0.0', () => {
+const expressServer = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Web server on port ${PORT} at 0.0.0.0`);
 });
 
-server.keepAliveTimeout = 120000; // 120 seconds
-server.headersTimeout = 120000;   // 120 seconds
+expressServer.keepAliveTimeout = 120000; // 120 seconds
+expressServer.headersTimeout = 120000;   // 120 seconds
