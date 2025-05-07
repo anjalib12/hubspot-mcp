@@ -1738,7 +1738,6 @@ main().catch((error) => {
   process.exit(1);
 });
 import express from 'express';
-import { Server, CallToolRequestSchema } from '@modelcontextprotocol/sdk/server/index.js';
 
 const app = express();
 app.use(express.json()); // Enable JSON parsing for POST requests
@@ -1755,18 +1754,8 @@ app.post('/call-tool', async (req, res) => {
   }
 
   // Simulate MCP server handling (integrate with your existing MCP server)
-  const mcpServer = new Server(
-    { name: 'HubSpot MCP Server', version: '1.0.0' },
-    { capabilities: { tools: {} } }
-  );
-  const response = await mcpServer.handleRequest(CallToolRequestSchema, {
-    params: {
-      name: request.name,
-      arguments: request.arguments
-    }
-  });
-
-  res.json(response);
+  // This assumes you already created your `Server` and registered tools earlier
+  res.status(501).json({ error: 'MCP handler logic should be connected here.' });
 });
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
@@ -1774,6 +1763,5 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Web server on port ${PORT} at 0.0.0.0`);
 });
 
-// Add timeout settings to prevent connection issues
 server.keepAliveTimeout = 120000; // 120 seconds
 server.headersTimeout = 120000;   // 120 seconds
