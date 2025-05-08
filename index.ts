@@ -1485,6 +1485,7 @@ async function main() {
       },
     }
   );
+  mcpServerInstance = mcpServer;
 
   const hubspotClient = new HubSpotClient(hubspotApiKey);
 
@@ -1748,14 +1749,20 @@ app.get('/', (req, res) => {
 });
 
 // Add POST endpoint for MCP tool calls
+let mcpServerInstance: Server;
+
 app.post('/call-tool', async (req, res) => {
   const request = req.body;
   if (!request.name || !request.arguments) {
     return res.status(400).json({ error: 'Invalid request: name and arguments required' });
   }
 
+  if (!mcpServerInstance) {
+    return res.status(503).json({ error: 'MCP server not ready' });
+  }
+
   try {
-    const result = await mcpServer.handleRequest(CallToolRequestSchema, {
+    const result = await mcpServerInstance.receive(CallToolRequestSchema, {
       params: {
         name: request.name,
         arguments: request.arguments
