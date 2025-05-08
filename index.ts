@@ -1474,7 +1474,7 @@ async function main() {
   }
 
   console.error("Starting HubSpot MCP Server...");
-  mcpServer = new Server(
+  const mcpServer = new Server(
     {
       name: "HubSpot MCP Server",
       version: "1.0.0",
@@ -1488,7 +1488,7 @@ async function main() {
 
   const hubspotClient = new HubSpotClient(hubspotApiKey);
 
-  server.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest) => {
+  mcpServer.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest) => {
     console.error("Received CallToolRequest:", request);
     try {
       if (!request.params.arguments) {
@@ -1702,7 +1702,7 @@ async function main() {
     }
   });
 
-  server.setRequestHandler(ListToolsRequestSchema, async () => {
+  mcpServer.setRequestHandler(ListToolsRequestSchema, async () => {
     console.error("Received ListToolsRequest");
     return {
       tools: [
@@ -1729,7 +1729,7 @@ async function main() {
 
   const transport = new StdioServerTransport();
   console.error("Connecting server to transport...");
-  await server.connect(transport);
+  await mcpServer.connect(transport);
 
   console.error("HubSpot MCP Server running on stdio");
 }
