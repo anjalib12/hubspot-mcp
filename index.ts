@@ -1762,12 +1762,13 @@ app.post('/call-tool', async (req, res) => {
   }
 
   try {
-    const result = await mcpServerInstance.receive(CallToolRequestSchema, {
-      params: {
-        name: request.name,
-        arguments: request.arguments
-      }
-    });
+    const result = await mcpServerInstance.handleRequest(CallToolRequestSchema, {
+  method: "callTool",
+  params: {
+    name: request.name,
+    arguments: request.arguments
+  }
+});
 
     res.json(result);
   } catch (error) {
